@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/emicklei/microgate-api/log/v1;log";
+
+service LogService {
+  rpc Log(LogRequest) returns (google.protobuf.Empty) {}
+}
+
+message LogRequest {
+  LogLevel level = 1;
+  string message = 2;
+  repeated KeyValuePair attributes = 3;  
+  string caller = 4;
+
+  message KeyValuePair {
+    string key = 1;
+    string value = 2; // for string and formatted values
+  }
+
+  enum LogLevel {
+    UNKNOWN = 0;
+    INFO    = 1;
+    WARN    = 2;
+    DEBUG   = 3;
+    ERROR   = 4;
+  }
+}

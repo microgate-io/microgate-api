@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package microgate;
+
+// import "google/protobuf/empty.proto"; 
+// import "validate/validate.proto";
+
+
+option go_package = "github.com/emicklei/microgate-api/queue/v1;queue";
+
+service QueueingService {
+  rpc Publish   (PublishRequest  ) returns (PublishResponse  );
+  rpc Subscribe (SubscribeRequest) returns (SubscribeResponse);
+}
+message PublishRequest {
+  string topic   = 1;
+  bytes  message = 2;
+}
+message PublishResponse {}
+message SubscribeRequest {
+  string subscription_id = 1;
+}
+message SubscribeResponse {}
+
+service MessageHandlingService {
+  rpc HandleMessage (HandleMessageRequest) returns (HandleMessageResponse);
+}
+message HandleMessageRequest {
+  string                   message_id =                  1;
+        map <string,string>          message_properties = 2;
+  bytes                    payload    =                  3;
+}
+message HandleMessageResponse {
+  bool acknowledge = 1;
+}

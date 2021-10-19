@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package microgate;
+
+// import "google/protobuf/empty.proto";
+
+
+option go_package = "github.com/emicklei/microgate-api/db/v1;db";
+
+service DatabaseService {
+  rpc Begin    (BeginRequest   ) returns (BeginResponse   );
+  rpc Commit   (CommitRequest  ) returns (CommitResponse  );
+  rpc Rollback (RollbackRequest) returns (RollbackResponse);
+  rpc Query    (QueryRequest   ) returns (QueryResponse   );
+  rpc Mutate   (MutationRequest) returns (MutationResponse);
+}
+message BeginRequest {
+  int32 isolation_level = 1;
+  bool  read_only       = 2;
+}
+message BeginResponse {
+  string error          = 1;
+  string transaction_id = 2;
+}
+message CommitRequest {
+  string transaction_id = 1;
+}
+message CommitResponse {
+  string error = 1;
+}
+message RollbackRequest {
+  string transaction_id = 1;
+}
+message RollbackResponse {
+  string error = 1;
+}
+message QueryRequest {
+  // required
+  string sql = 1;
+  // optional
+  string transaction_id = 2;
+}
+message QueryResponse {
+           string error   = 1;
+  repeated string columns = 2;
+}
+message MutationRequest {
+  // required
+  string sql = 1;
+  // required
+  string transaction_id = 2;
+}
+message MutationResponse {
+           string error = 1;
+  repeated Row    rows  = 2;
+}
+message Row {
+  repeated Column columns = 1;
+}
+message Column {
+  string name         = 1;
+  bool   valueIsValid = 2;
+
+  oneof value {
+    string stringValue = 3;
+    int32  int32Value  = 4;
+    int64  int64Value  = 5;
+    bool   boolValue   = 6;
+  }
+}
