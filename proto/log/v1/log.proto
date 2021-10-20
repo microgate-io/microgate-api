@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/emicklei/microgate-api/log/v1;log";
+option go_package = "github.com/microgate-io/microgate-api/log/v1;log";
 
 service LogService {
   rpc Log(LogRequest) returns (google.protobuf.Empty) {}

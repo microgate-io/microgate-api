@@ -6,7 +6,7 @@ package microgate;
 // import "validate/validate.proto";
 
 
-option go_package = "github.com/emicklei/microgate-api/queue/v1;queue";
+option go_package = "github.com/microgate-io/microgate-api/queue/v1;queue";
 
 service QueueingService {
   rpc Publish   (PublishRequest  ) returns (PublishResponse  );
@@ -26,9 +26,10 @@ service MessageHandlingService {
   rpc HandleMessage (HandleMessageRequest) returns (HandleMessageResponse);
 }
 message HandleMessageRequest {
-  string                   message_id =                  1;
-        map <string,string>          message_properties = 2;
-  bytes                    payload    =                  3;
+  string                   message_id      =                  1;
+        map <string,string>               message_properties = 2;
+  bytes                    payload         =                  3;
+  string                   subscription_id =                  4;
 }
 message HandleMessageResponse {
   bool acknowledge = 1;

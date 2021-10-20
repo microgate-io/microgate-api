@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/emicklei/microgate-api/config/v1;config";
+option go_package = "github.com/microgate-io/microgate-api/config/v1;config";
 
 service ConfigService {
   rpc GetConfig (google.protobuf.Empty) returns (GetConfigResponse);

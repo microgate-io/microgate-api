@@ -5,7 +5,7 @@ package microgate;
 // import "google/protobuf/empty.proto";
 
 
-option go_package = "github.com/emicklei/microgate-api/db/v1;db";
+option go_package = "github.com/microgate-io/microgate-api/db/v1;db";
 
 service DatabaseService {
   rpc Begin    (BeginRequest   ) returns (BeginResponse   );
