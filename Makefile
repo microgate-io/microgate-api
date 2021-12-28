@@ -6,7 +6,7 @@ clean:
 	rm -rf v1 
 
 .PHONY: pb clean  log secret db queue
-pb: clean fmt  log secret config db queue
+pb: clean fmt  log secret config db queue httpjson
 
 
 log:
@@ -40,6 +40,14 @@ db:
 	--go_out=${TARGET}/v1/db --go_opt=paths=source_relative \
 	--go-grpc_out=${TARGET}/v1/db --go-grpc_opt=paths=source_relative \
 	db.proto	
+
+httpjson:
+	mkdir -p ${TARGET}/v1/httpjson
+	protoc \
+	-I proto/httpjson/v1 \
+	--go_out=${TARGET}/v1/httpjson --go_opt=paths=source_relative \
+	--go-grpc_out=${TARGET}/v1/httpjson --go-grpc_opt=paths=source_relative \
+	httpjson.proto
 
 queue:
 	mkdir -p ${TARGET}/v1/queue
