@@ -43,7 +43,6 @@ queue:
 
 fmt:
 	cd proto/config/v1 && protofmt -w config.proto 
-	cd proto/db/v1 && protofmt -w db.proto
 	cd proto/queue/v1 && protofmt -w queue.proto
 	cd proto/secret/v1 && protofmt -w secret.proto
 	cd proto/queue/v1 && protofmt -w queue.proto

@@ -3,18 +3,21 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 
 option go_package = "github.com/microgate-io/microgate-api/config/v1;config";
-
 service ConfigService {
   rpc GetConfig (google.protobuf.Empty) returns (GetConfigResponse);
 }
+
 message GetConfigResponse {
   Configuration Config = 1;
 }
+
 message Configuration {
   message Entry {
     string stringValue = 1;
     int64  intValue    = 2;
     bool   boolValue   = 3;
   }
+
   map <string,Entry> entries = 1;
 }
+
